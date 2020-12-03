@@ -3,11 +3,11 @@ package pe.edu.upeu.app;
 import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
-
-import pe.edu.upeu.core.ArreglosMain;
 import pe.edu.upeu.core.FibonaciMain;
 import pe.edu.upeu.core.Reportes;
+import pe.edu.upeu.dao.ClientesDao;
 import pe.edu.upeu.dao.ProductosDao;
+import pe.edu.upeu.dao.VentasDao;
 import pe.edu.upeu.gui.MainGUI;
 import pe.edu.upeu.utils.LeerArchivo;
 import pe.edu.upeu.utils.LeerTeclado;
@@ -22,8 +22,7 @@ public class App{
     static LeerTeclado teclado=new LeerTeclado();
     static Console cons=System.console();
     static FibonaciMain fib=new FibonaciMain();
-    static Reportes rep=new Reportes();
-    static ArreglosMain armain=new ArreglosMain();    
+    static Reportes rep=new Reportes(); 
     static UtilsX util=new UtilsX();
     static public void crearArchivo(String nombre){
            LeerArchivo la=new LeerArchivo(nombre);
@@ -52,24 +51,24 @@ public class App{
             "1=Algoritmo Fibonci Normal \n"+
             "2=Finonaci Entorno Escritorio \n"+
             "3=Imprimir Productos \n"+
-            "4=Concepto Vectores \n"+
-            "5=Vector de numeros al Cuadrado \n"+
-            "6=Introduccion Matrices \n"+
-            "7=Imprimir Productos \n"+
+            "4=Crear Nuevo cliente \n"+
             "8=Crear Archivo Contenido \n"+
             "9=Agregar Producto \n"+
             "10=Eliminar Producto \n"+
-            "11=Modificar Registro de Productos \n";
+            "11=Modificar Registro de Productos \n"+
+            "12=Registrar Venta \n";
             ProductosDao daoProd;
+            ClientesDao clientesDao;
             numeroAlgoritmo=teclado.leer(0, datos);
             switch(numeroAlgoritmo){
                 case 1: System.out.println(fib.fibonaci(4));;break;
                 case 2: new MainGUI();break;
                 case 3: rep.imprimirMatriz(rep.reporteDatos());break;
-                case 4: armain.introduccionVector();break;
-                case 5: armain.imprimirVector(armain.calcular100PNumCuadrados());break;
-                case 6: armain.introduccionMatrices();break;
-                case 7: armain.imprimirMatriz(armain.llenadoMatriz());break;
+                case 4: {
+                    clientesDao=new ClientesDao();
+                    clientesDao.crearCliente();
+                    clientesDao.reportarClientes();
+                }break;
                 case 8: crearArchivo(teclado.leer("file.txt", "Ingrese el nombe del archivo que desea crear"));break;
                 case 9: { 
                     daoProd=new ProductosDao();
@@ -88,10 +87,17 @@ public class App{
                     daoProd.modificarProducto();
                     util.clearConsole();
                     daoProd.reportarProductos();
-                }break;                            
+                }break;       
+                case 12: { 
+                  VentasDao  vDao=new VentasDao();                    
+                    util.clearConsole();
+                    vDao.registrarVentas();
+                }break;                                       
                 default : System.out.println("La opción que selecciono no existe"); 
             }
             opcion=teclado.leer(' ', "Desea probar otras opciones? SI=S, NO=N");
+            util.clearConsole();
+            System.out.println(datos);
         }while(opcion=='S' || opcion=='s');
 
     }

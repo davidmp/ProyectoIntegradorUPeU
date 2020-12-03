@@ -1,0 +1,3 @@
+P1	Celular Samsung	Unidad	600.0	20.0
+P2	Laptop Toshiba	Unidad	2500.0	10.0
+P3	Camara Fotografica	Unidad	800.0	10.0
