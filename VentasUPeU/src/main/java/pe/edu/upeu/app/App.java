@@ -56,7 +56,8 @@ public class App{
             "9=Agregar Producto \n"+
             "10=Eliminar Producto \n"+
             "11=Modificar Registro de Productos \n"+
-            "12=Registrar Venta \n";
+            "12=Registrar Venta \n"+
+            "13=Reporte de Ventas por Dia \n";
             ProductosDao daoProd;
             ClientesDao clientesDao;
             numeroAlgoritmo=teclado.leer(0, datos);
@@ -92,7 +93,12 @@ public class App{
                   VentasDao  vDao=new VentasDao();                    
                     util.clearConsole();
                     vDao.registrarVentas();
-                }break;                                       
+                }break;  
+                case 13: { 
+                  VentasDao  vDao=new VentasDao();                    
+                    util.clearConsole();
+                    vDao.reporteVentasFecha(teclado.leer("", "Ingrese la Fecha Inicial"), teclado.leer("", "Ingrese la Fecha Final"));
+                }break;                                                      
                 default : System.out.println("La opción que selecciono no existe"); 
             }
             opcion=teclado.leer(' ', "Desea probar otras opciones? SI=S, NO=N");
