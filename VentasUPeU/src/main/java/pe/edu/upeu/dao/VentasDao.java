@@ -116,6 +116,17 @@ public class VentasDao extends CrudFileRepository{
         }
     }
 
+    public Object[][] listarProductosDisponiblesX(){
+        leerArc=new LeerArchivo("Productos.txt"); 
+     System.out.println("******************Productos Disponibles***********");
+     Object[][] data=listarContenido(leerArc);
+     for (int i=0; i<data.length; i++) {
+         System.out.print(data[i][0]+"="+data[i][1]+"(stock:"+data[i][4]+" Precio: "+data[i][3]+" ) | " );
+         }
+         return data;
+     }
+
+
     public Object[][] crearCarritoVenta(Ventas venta){            
       leerArc=new LeerArchivo("VentasDetalle.txt");  
       ventaDetalle=new VentaDetalle();
